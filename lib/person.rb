@@ -7,17 +7,16 @@ class Person
   def initialize(data)
     @name = data[:name]
     @interests = data[:interests]
-    @supplies = {}
+    @supplies = Hash.new(0)
   end
 
   def add_supply(supply_name, count)
-    @supplies[supply_name] ||= 0
     @supplies[supply_name] += count
   end
 
   def can_build?(craft)
     craft.supplies_required.all? do |supply, count|
-      @supplies.keys.include?(supply) && @supplies[supply] >= count
+      @supplies[supply] >= count
     end
   end
 
